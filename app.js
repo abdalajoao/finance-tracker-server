@@ -4,6 +4,7 @@ import dotenv from "dotenv";
 import morgan from "morgan";
 import authRoutes from "./routes/auth.routes.js";
 import connectionDB from "./db/mongoose.connection.js";
+import categoryRoutes from "./routes/category.routes.js";
 
 
 dotenv.config();
@@ -22,13 +23,15 @@ app.use(morgan("dev"));
 
 
 
-
 app.get("/",  (req, res) => {
     res.send("Finance Tracker API is running");
 });
 
 
 app.use("/auth", authRoutes);
+app.use("/categories", categoryRoutes);
+
+
 
 await connectionDB();;
 

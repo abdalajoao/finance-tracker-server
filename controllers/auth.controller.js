@@ -1,5 +1,6 @@
 import User from "../models/user.model.js";
 import bcrypt from "bcryptjs";
+import jwt from "jsonwebtoken";
 
 // ==========================
 // Signup Controller
@@ -57,6 +58,7 @@ const login = async (req, res) => {
 
     // Find user by email
     const user = await User.findOne({ email });
+    console.log(user);
 
     if (!user) {
       return res.status(400).json({
@@ -75,6 +77,23 @@ const login = async (req, res) => {
         message: "Invalid email or password.",
       });
     }
+
+   // Generate JWT
+    const authToken = jwt.sign(
+     {
+    _id: user._id,
+     },
+    process.env.TOKEN_SECRET,
+    {
+    algorithm: "HS256", 
+    expiresIn: "7d",
+    }
+  );  
+
+  // Return auth token 
+  res.status(200).json({
+    authToken,
+  });
 
   } catch (error) {
     console.log(error);
