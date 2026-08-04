@@ -1,6 +1,6 @@
 import Category from "../models/category.model.js";
 
-
+// Create Category Controller
 const createCategory = async (req, res) => {
 
     try {
@@ -28,4 +28,24 @@ const createCategory = async (req, res) => {
 
 };
 
-export { createCategory };
+
+// Get Categories Controller
+const getCategories = async (req, res) => {
+
+    try{
+
+        const categories = await Category.find({
+            owner: req.payload._id,
+        });
+
+        res.status(200).json(categories);
+    }catch (error) {
+        console.log(error);
+
+        res.status(500).json({
+            message: "Something went wrong.",
+        });
+    }
+}
+
+export { createCategory, getCategories };
