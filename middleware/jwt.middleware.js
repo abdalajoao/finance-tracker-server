@@ -5,6 +5,8 @@ const isAuthenticated = (req, res, next) => {
   // Get token from request headers
   const token = req.headers.authorization;
 
+  console.log("Authorization:", req.headers.authorization);
+
   // Check if token exists
   if (!token) {
     return res.status(401).json({
@@ -14,6 +16,7 @@ const isAuthenticated = (req, res, next) => {
 
   // Remove "Bearer "
   const authToken = token.split(" ")[1];
+  console.log("AuthToken:", authToken);
 
   try {
 
