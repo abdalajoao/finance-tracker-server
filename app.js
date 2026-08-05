@@ -5,6 +5,7 @@ import morgan from "morgan";
 import authRoutes from "./routes/auth.routes.js";
 import connectionDB from "./db/mongoose.connection.js";
 import categoryRoutes from "./routes/category.routes.js";
+import transactionRoutes from "./routes/transaction.routes.js";
 
 
 dotenv.config();
@@ -30,7 +31,7 @@ app.get("/",  (req, res) => {
 
 app.use("/auth", authRoutes);
 app.use("/categories", categoryRoutes);
-
+app.use("/transactions", transactionRoutes);
 
 
 await connectionDB();;
